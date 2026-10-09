@@ -1,0 +1,18 @@
+name: Garantir bucket R2
+description: Cria o bucket do cache incremental do OpenNext se ele ainda não existir
+inputs:
+  bucket:
+    description: Nome do bucket (igual ao de wrangler.jsonc)
+    default: nossa-politica-cache
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        BUCKET: ${{ inputs.bucket }}
+      run: |
+        if pnpm exec wrangler r2 bucket info "$BUCKET" > /dev/null 2>&1; then
+          echo "Bucket $BUCKET já existe."
+        else
+          pnpm exec wrangler r2 bucket create "$BUCKET"
+        fi
