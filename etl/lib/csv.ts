@@ -41,6 +41,14 @@ export function dividirLinhaCsv(linha: string, separador = ";"): string[] {
   return campos;
 }
 
+/** Número ímpar de aspas: algum campo entre aspas continua na próxima linha. */
+function aspasAbertas(linha: string): boolean {
+  let aspas = 0;
+  for (let i = 0; i < linha.length; i++)
+    if (linha.charCodeAt(i) === 34) aspas++;
+  return aspas % 2 === 1;
+}
+
 /** "1.450.000,00" ou "1450000,00" → 1450000 */
 export function numeroBrasileiro(texto: string): number {
   const limpo = texto.trim().replace(/\./g, "").replace(",", ".");
@@ -75,10 +83,19 @@ export async function lerCsvDoZip(
 
   let cabecalho: string[] | undefined;
   let linhas = 0;
-  for await (const linha of createInterface({
+  // Um campo entre aspas pode conter quebras de linha (descrições de bens no
+  // TSE): enquanto houver aspas abertas, junta com a linha seguinte
+  let pendente = "";
+  for await (const pedaco of createInterface({
     input: texto,
     crlfDelay: Infinity,
   })) {
+    const linha = pendente === "" ? pedaco : `${pendente}\n${pedaco}`;
+    if (aspasAbertas(linha)) {
+      pendente = linha;
+      continue;
+    }
+    pendente = "";
     if (linha === "") continue;
     const campos = dividirLinhaCsv(linha, separador);
     if (!cabecalho) {

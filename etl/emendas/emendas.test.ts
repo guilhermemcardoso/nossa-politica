@@ -244,4 +244,26 @@ describe("CSV dentro de zip", () => {
       { Município: "BRASÍLIA", Valor: "2,00" },
     ]);
   });
+
+  it("junta campos entre aspas que quebram linha", async () => {
+    const pasta = await mkdtemp(join(tmpdir(), "csv-"));
+    pastas.push(pasta);
+    const zip = join(pasta, "bens.zip");
+    await writeFile(
+      zip,
+      zipSync({
+        "bens.csv": strToU8(
+          '"SQ";"DS";"VR"\n"1";"Casa\ncom quintal";"10,00"\n"2";"Carro";"5,00"\n',
+        ),
+      }),
+    );
+    const linhas: Array<Record<string, string>> = [];
+    await lerCsvDoZip(zip, "bens.csv", (l) => linhas.push(l), {
+      codificacao: "utf-8",
+    });
+    expect(linhas).toEqual([
+      { SQ: "1", DS: "Casa\ncom quintal", VR: "10,00" },
+      { SQ: "2", DS: "Carro", VR: "5,00" },
+    ]);
+  });
 });

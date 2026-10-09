@@ -20,7 +20,8 @@
     "etl:camara": "tsx etl/camara/index.ts",
     "etl:validar": "tsx etl/validar.ts",
     "etl:senado": "tsx etl/senado/index.ts",
-    "etl:emendas": "tsx etl/emendas/index.ts"
+    "etl:emendas": "tsx etl/emendas/index.ts",
+    "etl:tse": "tsx etl/tse/index.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
