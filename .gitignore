@@ -1,0 +1,26 @@
+# deps
+node_modules/
+
+# next / opennext
+.next/
+.open-next/
+out/
+next-env.d.ts
+
+# cloudflare
+.wrangler/
+.dev.vars*
+
+# env
+.env*
+!.env.example
+
+# tests
+test-results/
+playwright-report/
+coverage/
+
+# misc
+.DS_Store
+*.log
+*.tsbuildinfo
