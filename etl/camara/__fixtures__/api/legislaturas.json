@@ -1,0 +1,40 @@
+{
+  "dados": [
+    {
+      "id": 57,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/legislaturas/57",
+      "dataInicio": "2023-02-01",
+      "dataFim": "2027-01-31"
+    },
+    {
+      "id": 56,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/legislaturas/56",
+      "dataInicio": "2019-02-01",
+      "dataFim": "2023-01-31"
+    },
+    {
+      "id": 55,
+      "uri": "https://dadosabertos.camara.leg.br/api/v2/legislaturas/55",
+      "dataInicio": "2015-02-01",
+      "dataFim": "2019-01-31"
+    }
+  ],
+  "links": [
+    {
+      "rel": "self",
+      "href": "https://dadosabertos.camara.leg.br/api/v2/legislaturas?ordem=DESC&ordenarPor=id&itens=3"
+    },
+    {
+      "rel": "next",
+      "href": "https://dadosabertos.camara.leg.br/api/v2/legislaturas?ordem=DESC&ordenarPor=id&pagina=2&itens=3"
+    },
+    {
+      "rel": "first",
+      "href": "https://dadosabertos.camara.leg.br/api/v2/legislaturas?ordem=DESC&ordenarPor=id&pagina=1&itens=3"
+    },
+    {
+      "rel": "last",
+      "href": "https://dadosabertos.camara.leg.br/api/v2/legislaturas?ordem=DESC&ordenarPor=id&pagina=19&itens=3"
+    }
+  ]
+}

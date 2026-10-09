@@ -1,0 +1,76 @@
+name: ETL Câmara
+
+on:
+  schedule:
+    # Todo dia às 06:00 em Brasília: anos recentes
+    - cron: "0 9 * * *"
+    # Domingo às 04:00 em Brasília: todos os anos (situação de projetos antigos muda)
+    - cron: "0 7 * * 0"
+  workflow_dispatch:
+    inputs:
+      completo:
+        description: Reprocessar todos os anos
+        type: boolean
+        default: false
+
+concurrency:
+  group: etl-camara
+  cancel-in-progress: false
+
+permissions:
+  contents: write # publicar a branch `dados`
+  actions: write # disparar o workflow de deploy
+
+jobs:
+  etl:
+    name: etl
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
+
+      - name: Baixar a carga anterior (branch dados)
+        env:
+          REPO: https://github.com/${{ github.repository }}.git
+        run: |
+          if git ls-remote --exit-code --heads "$REPO" dados > /dev/null; then
+            git clone --quiet --depth 1 --branch dados "$REPO" dados
+            rm -rf dados/.git
+          else
+            echo "::notice::Branch dados ainda não existe; fazendo a primeira carga completa."
+            mkdir dados
+          fi
+
+      - name: Rodar o ETL
+        env:
+          NODE_OPTIONS: --max-old-space-size=8192
+          COMPLETO: ${{ inputs.completo || github.event.schedule == '0 7 * * 0' }}
+        run: |
+          if [ "$COMPLETO" = "true" ]; then
+            pnpm etl:camara --dados dados --completo
+          else
+            pnpm etl:camara --dados dados
+          fi
+
+      - name: Validar os dados
+        run: pnpm etl:validar dados
+
+      - name: Publicar na branch dados
+        # Um commit único, sem histórico, sobrescrito a cada carga
+        env:
+          GH_TOKEN: ${{ github.token }}
+        working-directory: dados
+        run: |
+          git init --quiet --initial-branch dados
+          git add --all
+          git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit --quiet --message "Carga da Câmara de $(TZ=America/Sao_Paulo date +%F)"
+          git push --force --quiet \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" dados
+
+      - name: Disparar o deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main --repo "${{ github.repository }}"
