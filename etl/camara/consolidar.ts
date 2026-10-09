@@ -1,19 +1,22 @@
-import { centavos, mediana, percentual } from "../lib/estatistica";
-import { slugificar } from "../lib/texto";
 import {
-  type Comparacao,
   comparar,
   maioriaDosColegas,
   normalizarVoto,
   orientacaoDoGoverno,
   type PlacarPartido,
-} from "./alinhamento";
-import type { Legislatura } from "./api";
+} from "../comum/alinhamento";
 import {
-  DIAS_MINIMOS_PARA_MEDIANA,
+  atribuirSlugs,
+  ContadorAlinhamento,
+  CRITERIO_MEDIANAS,
+  calcularMedianas,
   LIMITE_LISTA_PROPOSICOES,
-  SITUACAO_VIROU_NORMA,
-} from "./config";
+  maioresNotas,
+  mediaMensal,
+} from "../comum/consolidacao";
+import { centavos, percentual } from "../lib/estatistica";
+import type { Legislatura } from "./api";
+import { SITUACAO_VIROU_NORMA } from "./config";
 import type { DeputadoDaLista, ItemHistorico } from "./esquemas";
 import { calcularMandato, dentroDosPeriodos, type Mandato } from "./mandatos";
 import type {
@@ -22,14 +25,12 @@ import type {
   ProposicaoResumo,
   ResumoVotacao,
 } from "./parcial";
-import { maioresNotas } from "./processar/despesas";
 import type {
   Agregados,
   Deputado,
   IndiceDeputados,
   ListaVotacoes,
   MandatoNaLegislatura,
-  Medianas,
 } from "./saida";
 
 export interface EntradaConsolidacao {
@@ -38,6 +39,8 @@ export interface EntradaConsolidacao {
   deputadosPorLegislatura: Map<number, DeputadoDaLista[]>;
   /** idDeputado → histórico */
   historicos: Map<number, ItemHistorico[]>;
+  /** idDeputado → nome civil (arquivo `deputados.json` da Câmara) */
+  nomesCivis?: Map<number, string>;
   parciais: ParcialAno[];
   hoje: string;
   atualizadoEm: string;
@@ -49,8 +52,6 @@ export interface SaidaConsolidacao {
   agregados: Agregados;
   votacoes: ListaVotacoes;
 }
-
-const DIAS_POR_MES = 365.25 / 12;
 
 const legislaturaDaData = (legislaturas: Legislatura[], data: string) =>
   legislaturas.find((l) => l.dataInicio <= data && data <= l.dataFim);
@@ -97,6 +98,7 @@ export function consolidar(entrada: EntradaConsolidacao): SaidaConsolidacao {
       versao: 1,
       id,
       nome: atual.nome,
+      nomeCivil: entrada.nomesCivis?.get(id),
       partido: atual.partido,
       uf: atual.uf,
       urlFoto: atual.urlFoto,
@@ -119,6 +121,7 @@ export function consolidar(entrada: EntradaConsolidacao): SaidaConsolidacao {
           id: d.id,
           slug: d.slug,
           nome: d.nome,
+          nomeCivil: d.nomeCivil,
           partido: d.partido,
           uf: d.uf,
           urlFoto: d.urlFoto,
@@ -130,7 +133,7 @@ export function consolidar(entrada: EntradaConsolidacao): SaidaConsolidacao {
     agregados: {
       versao: 1,
       atualizadoEm,
-      criterio: `Medianas entre deputados com pelo menos ${DIAS_MINIMOS_PARA_MEDIANA} dias em exercício na legislatura, agrupados pelo partido e UF no fim da legislatura (ou hoje, na atual).`,
+      criterio: CRITERIO_MEDIANAS,
       legislaturas: legislaturas.map((l) => ({
         idLegislatura: l.id,
         inicio: l.dataInicio,
@@ -238,7 +241,6 @@ function montarMandato(
     notas.push(...despesas.maioresNotas);
   }
   const total = centavos([...porMes.values()].reduce((s, v) => s + v, 0));
-  const meses = base.diasEmExercicio / DIAS_POR_MES;
 
   // Presença
   const presentes = new Set<number>();
@@ -256,8 +258,8 @@ function montarMandato(
 
   // Votações
   const votos: Record<string, string> = {};
-  const partido = { consideradas: 0, alinhadas: 0 };
-  const governo = { consideradas: 0, alinhadas: 0 };
+  const partido = new ContadorAlinhamento();
+  const governo = new ContadorAlinhamento();
   for (const parcial of indices.parciais) {
     for (const [idVotacao, voto, partidoNoVoto] of parcial.votos[chave] ?? []) {
       const registro = indices.votacoes.get(idVotacao);
@@ -266,9 +268,8 @@ function montarMandato(
       const placar = indices.placaresPorPartido
         .get(idVotacao)
         ?.get(partidoNoVoto);
-      contar(partido, comparar(voto, maioriaDosColegas(placar, voto)));
-      contar(
-        governo,
+      partido.registrar(comparar(voto, maioriaDosColegas(placar, voto)));
+      governo.registrar(
         comparar(voto, orientacaoDoGoverno(registro.votacao.orientacoes)),
       );
     }
@@ -311,7 +312,7 @@ function montarMandato(
     diasEmExercicio: base.diasEmExercicio,
     despesas: {
       total,
-      mediaMensal: base.diasEmExercicio >= 30 ? centavos(total / meses) : null,
+      mediaMensal: mediaMensal(total, base.diasEmExercicio),
       porMes: [...porMes]
         .sort(([a], [b]) => a.localeCompare(b))
         .map(([mes, valor]) => ({ mes, valor: centavos(valor) })),
@@ -340,90 +341,9 @@ function montarMandato(
     },
     votacoes: {
       votosRegistrados: Object.keys(votos).length,
-      alinhamentoPartido: {
-        ...partido,
-        percentual: percentual(partido.alinhadas, partido.consideradas),
-      },
-      alinhamentoGoverno: {
-        ...governo,
-        percentual: percentual(governo.alinhadas, governo.consideradas),
-      },
+      alinhamentoPartido: partido.resultado(),
+      alinhamentoGoverno: governo.resultado(),
       votos,
     },
   };
-}
-
-function contar(
-  contador: { consideradas: number; alinhadas: number },
-  resultado: Comparacao,
-) {
-  if (resultado === null) return;
-  contador.consideradas++;
-  if (resultado === "alinhado") contador.alinhadas++;
-}
-
-// --- Medianas
-
-function medianasDe(mandatos: MandatoNaLegislatura[]): Medianas {
-  const valores = (f: (m: MandatoNaLegislatura) => number | null) =>
-    mandatos.map(f).filter((v): v is number => v !== null);
-  const arredondada = (vs: number[]) => {
-    const m = mediana(vs);
-    return m === null ? null : centavos(m);
-  };
-  return {
-    n: mandatos.length,
-    presencaPercentual: arredondada(valores((m) => m.presenca.percentual)),
-    proposicoesApresentadas: arredondada(
-      valores((m) => m.proposicoes.apresentadas),
-    ),
-    proposicoesComoPrimeiroAutor: arredondada(
-      valores((m) => m.proposicoes.comoPrimeiroAutor),
-    ),
-    viraramNorma: arredondada(valores((m) => m.proposicoes.viraramNorma)),
-    despesaMediaMensal: arredondada(valores((m) => m.despesas.mediaMensal)),
-  };
-}
-
-export function calcularMedianas(todos: MandatoNaLegislatura[]) {
-  const mandatos = todos.filter(
-    (m) => m.diasEmExercicio >= DIAS_MINIMOS_PARA_MEDIANA,
-  );
-  const agrupar = (chave: (m: MandatoNaLegislatura) => string) => {
-    const grupos = new Map<string, MandatoNaLegislatura[]>();
-    for (const m of mandatos) {
-      const k = chave(m);
-      if (k === "") continue;
-      grupos.set(k, [...(grupos.get(k) ?? []), m]);
-    }
-    return Object.fromEntries(
-      [...grupos]
-        .sort(([a], [b]) => a.localeCompare(b))
-        .map(([k, ms]) => [k, medianasDe(ms)]),
-    );
-  };
-  return {
-    casa: medianasDe(mandatos),
-    partidos: agrupar((m) => m.partido),
-    ufs: agrupar((m) => m.uf),
-  };
-}
-
-// --- Slugs
-
-/**
- * Slug a partir do nome. Em caso de homônimos, o de menor id fica com o slug
- * simples e os demais ganham o id no fim, para que o endereço não mude quando
- * entra um deputado novo com o mesmo nome.
- */
-function atribuirSlugs(deputados: Omit<Deputado, "slug">[]): Deputado[] {
-  const usados = new Set<string>();
-  return [...deputados]
-    .sort((a, b) => a.id - b.id)
-    .map((d) => {
-      const base = slugificar(d.nome) || String(d.id);
-      const slug = usados.has(base) ? `${base}-${d.id}` : base;
-      usados.add(slug);
-      return { ...d, slug };
-    });
 }

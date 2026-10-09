@@ -9,10 +9,10 @@ import { join } from "node:path";
 import {
   Agregados,
   Deputado,
-  Fontes,
   IndiceDeputados,
   ListaVotacoes,
 } from "./camara/saida";
+import { Fontes } from "./comum/fontes";
 import { lerJson, listarArquivos } from "./lib/arquivos";
 
 /** A Câmara tem 513 cadeiras; com suplentes, cada legislatura passa disso. */

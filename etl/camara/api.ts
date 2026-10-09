@@ -75,6 +75,36 @@ export async function buscarDeputadosDaLegislatura(
   );
 }
 
+const DeputadoDoArquivo = z.object({
+  uri: z.string(),
+  nomeCivil: z.string().nullish(),
+});
+
+/**
+ * Nome civil de todos os deputados, do arquivo em massa `deputados.json`
+ * (um arquivo de ~4 MB em vez de uma chamada por deputado). Serve para a busca
+ * e para cruzar com o TSE, que usa o nome completo.
+ */
+export async function buscarNomesCivis(
+  opcoes: OpcoesHttp = {},
+): Promise<Map<number, string>> {
+  const json = await buscarJson(
+    "https://dadosabertos.camara.leg.br/arquivos/deputados/json/deputados.json",
+    opcoes,
+  );
+  const linhas = validarLinhas(
+    DeputadoDoArquivo,
+    extrairDados(json, "deputados.json"),
+    "deputados.json",
+  );
+  const nomes = new Map<number, string>();
+  for (const { uri, nomeCivil } of linhas) {
+    const id = Number(uri.split("/").pop());
+    if (Number.isInteger(id) && nomeCivil) nomes.set(id, nomeCivil.trim());
+  }
+  return nomes;
+}
+
 /** Entradas, saídas, licenças e trocas de partido de um deputado. */
 export async function buscarHistorico(
   idDeputado: number,

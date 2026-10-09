@@ -12,6 +12,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { z } from "zod";
+import { lerFontes, registrarFonte } from "../comum/fontes";
 import {
   escreverJson,
   hojeEmBrasilia,
@@ -26,18 +27,13 @@ import {
   buscarDeputadosDaLegislatura,
   buscarHistorico,
   buscarLegislaturas,
+  buscarNomesCivis,
 } from "./api";
 import { CONCORRENCIA_API, LEGISLATURAS_NO_SITE } from "./config";
 import { consolidar } from "./consolidar";
 import { type DeputadoDaLista, ItemHistorico } from "./esquemas";
 import { ParcialAno } from "./parcial";
-import {
-  Agregados,
-  Deputado,
-  Fontes,
-  IndiceDeputados,
-  ListaVotacoes,
-} from "./saida";
+import { Agregados, Deputado, IndiceDeputados, ListaVotacoes } from "./saida";
 
 const CacheHistoricos = z.object({
   atualizadoEm: z.string(),
@@ -84,12 +80,9 @@ async function main() {
         : todosOsAnos.filter((a) => a >= anoAtual - 1 || !existentes.has(a));
 
   // 2. Arquivos em massa, um ano por vez
-  const fontesAnteriores = Fontes.safeParse(
-    await lerJsonSeExistir(join(pastaDados, "fontes.json")),
-  );
-  const anosProcessados: Record<string, string> = fontesAnteriores.success
-    ? { ...fontesAnteriores.data.camara.anos }
-    : {};
+  const anosProcessados: Record<string, string> = {
+    ...(await lerFontes(pastaDados)).camara?.anos,
+  };
   const pastaTemporaria = join(tmpdir(), "nossa-politica-etl");
   for (const ano of anosAlvo) {
     console.log(`Ano ${ano}`);
@@ -135,6 +128,7 @@ async function main() {
     atualizadoEm,
     porDeputado: Object.fromEntries(historicos),
   });
+  const nomesCivis = await buscarNomesCivis();
 
   // 4. Consolidação
   const parciais: ParcialAno[] = [];
@@ -147,6 +141,7 @@ async function main() {
     legislaturas,
     deputadosPorLegislatura,
     historicos,
+    nomesCivis,
     parciais,
     hoje,
     atualizadoEm,
@@ -173,31 +168,24 @@ async function main() {
     join(pastaCamara, "votacoes.json"),
     ListaVotacoes.parse(saida.votacoes),
   );
-  await escreverJson(
-    join(pastaDados, "fontes.json"),
-    Fontes.parse({
-      ...(fontesAnteriores.success ? fontesAnteriores.data : {}),
-      versao: 1,
-      camara: {
-        atualizadoEm,
-        anos: anosProcessados,
-        origem: [
-          {
-            descricao: "Dados Abertos da Câmara dos Deputados (API v2)",
-            url: "https://dadosabertos.camara.leg.br/swagger/api.html",
-          },
-          {
-            descricao: "Arquivos em massa da Câmara dos Deputados",
-            url: "https://dadosabertos.camara.leg.br/arquivos",
-          },
-          {
-            descricao: "Cota para o Exercício da Atividade Parlamentar",
-            url: "https://www.camara.leg.br/cota-parlamentar/",
-          },
-        ],
+  await registrarFonte(pastaDados, "camara", {
+    atualizadoEm,
+    anos: anosProcessados,
+    origem: [
+      {
+        descricao: "Dados Abertos da Câmara dos Deputados (API v2)",
+        url: "https://dadosabertos.camara.leg.br/swagger/api.html",
       },
-    }),
-  );
+      {
+        descricao: "Arquivos em massa da Câmara dos Deputados",
+        url: "https://dadosabertos.camara.leg.br/arquivos",
+      },
+      {
+        descricao: "Cota para o Exercício da Atividade Parlamentar",
+        url: "https://www.camara.leg.br/cota-parlamentar/",
+      },
+    ],
+  });
 
   console.log(
     `Pronto: ${saida.deputados.length} deputados, ${saida.votacoes.votacoes.length} votações nominais.`,
