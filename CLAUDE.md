@@ -27,11 +27,13 @@ Site de transparência política: qualquer pessoa encontra um deputado ou senado
 
 ## Dados (ETL)
 
-- `etl/camara/` baixa os arquivos em massa e a API da Câmara e gera JSON em `dados/` (ver `docs/METODOLOGIA.md`).
-- O workflow `ETL Câmara` roda todo dia, publica `dados/` na branch `dados` (um commit único, sobrescrito) e dispara o deploy. Aos domingos, reprocessa todos os anos.
-- `dados/camara/_parciais/AAAA.json` guarda o resultado intermediário de cada ano; a carga diária só reprocessa o ano atual e o anterior.
-- Os formatos publicados estão em `etl/camara/saida.ts`. O site vai ler esses arquivos no build, então mudanças ali precisam ser compatíveis com as páginas.
-- Os testes usam respostas gravadas da API e amostras reais dos arquivos em `etl/camara/__fixtures__/`.
+- Uma pasta por fonte em `etl/`: `camara/`, `senado/`, `emendas/` (Portal da Transparência) e `tse/`. Cada uma grava JSON na sua subpasta de `dados/`. As regras de cada indicador estão em `docs/METODOLOGIA.md`.
+- `etl/comum/` tem o que é compartilhado: formatos de saída de Câmara e Senado (`saida.ts`), alinhamento, medianas, `fontes.json` e o cadastro de parlamentares usado para cruzar fontes que só trazem o nome (`parlamentares.ts`).
+- O workflow `ETL` roda todo dia, na ordem Câmara → Senado → emendas → TSE. Emendas e TSE dependem dos parlamentares já gravados. Uma fonte que falha fica com os dados da carga anterior e o job termina com erro. Depois publica `dados/` na branch `dados` (um commit único, sobrescrito) e dispara o deploy.
+- Resultados intermediários que não precisam ser refeitos todo dia ficam em `_parciais/`: anos da Câmara (só o atual e o anterior são reprocessados) e eleições do TSE. Aos domingos, a Câmara reprocessa todos os anos e o TSE refaz a eleição mais recente.
+- **Compatibilidade:** o deploy valida os dados já publicados antes da próxima carga rodar. Campo novo num formato de saída entra como opcional, e uma fonte nova só é exigida pelo `etl:validar` depois de aparecer em `fontes.json`.
+- Os testes usam respostas gravadas das APIs e amostras reais dos arquivos (pastas `__fixtures__/`), com CPFs e nomes de pessoas físicas trocados por valores fictícios.
+- **Nunca** coloque CPF ou nome de pessoa física real (fornecedor, doador, passageiro) em fixtures: o repositório é público.
 
 ## Comandos
 
@@ -47,6 +49,9 @@ Site de transparência política: qualquer pessoa encontra um deputado ou senado
 | `pnpm preview` | Build e execução local no runtime da Cloudflare (workerd) em http://localhost:8787 |
 | `pnpm cf-typegen` | Regenera `cloudflare-env.d.ts` a partir de `wrangler.jsonc` |
 | `pnpm etl:camara` | Carga da Câmara em `./dados` (anos recentes e os que faltam). `--completo` reprocessa tudo (~3 min, ~3,5 GB de downloads); `--anos ""` só reconsolida |
+| `pnpm etl:senado` | Carga do Senado (~1 min) |
+| `pnpm etl:emendas` | Emendas do Portal da Transparência (~10 s; precisa de Câmara e Senado em `./dados`) |
+| `pnpm etl:tse` | Eleições do TSE: só as que faltam. `--recente` refaz a mais recente; `--completo`, todas (~5 min, ~2 GB de downloads) |
 | `pnpm etl:validar [pasta]` | Valida os arquivos de dados (formato e limites de bom senso) |
 
 ## Fluxo de uma mudança

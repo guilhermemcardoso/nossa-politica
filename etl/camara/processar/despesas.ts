@@ -1,6 +1,6 @@
+import { maioresNotas } from "../../comum/consolidacao";
 import { centavos } from "../../lib/estatistica";
 import { mascararDocumento } from "../../lib/texto";
-import { LIMITE_MAIORES_NOTAS } from "../config";
 import type { Despesa } from "../esquemas";
 import type { DespesasDoAno, NotaFiscal, ParcialAno } from "../parcial";
 
@@ -60,13 +60,6 @@ export function processarDespesas(linhas: Despesa[]): ParcialAno["despesas"] {
     resultado[idDeputado][idLegislatura] = despesas;
   }
   return resultado;
-}
-
-export function maioresNotas(notas: NotaFiscal[]): NotaFiscal[] {
-  return [...notas]
-    .sort((a, b) => b.valor - a.valor || a.data.localeCompare(b.data))
-    .slice(0, LIMITE_MAIORES_NOTAS)
-    .map((n) => ({ ...n, valor: centavos(n.valor) }));
 }
 
 function arredondar(mapa: Map<string, number>): Record<string, number> {

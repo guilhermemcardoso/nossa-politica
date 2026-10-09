@@ -1,9 +1,7 @@
-import { TIPO_AUTOR_DEPUTADO, TIPOS_DE_PROJETO } from "../config";
+import { ehTipoDeProjeto } from "../../comum/consolidacao";
+import { TIPO_AUTOR_DEPUTADO } from "../config";
 import type { AutorProposicao, Proposicao } from "../esquemas";
 import type { ParcialAno } from "../parcial";
-
-const ehTipoDeProjeto = (tipo: string) =>
-  (TIPOS_DE_PROJETO as readonly string[]).includes(tipo);
 
 /**
  * Projetos (PL, PLP, PEC, PDL) que têm deputados como autores. Cada deputado
