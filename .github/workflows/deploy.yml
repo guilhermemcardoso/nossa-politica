@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches: [main]
-  # Permite disparar o deploy à mão ou por outro workflow (ex.: ETL)
+  # Disparado à mão ou pelo ETL depois de publicar dados novos
   workflow_dispatch:
 
 concurrency:
@@ -30,6 +30,8 @@ jobs:
           pnpm lint
           pnpm typecheck
           pnpm test
+      # Se os dados não passarem na validação, o deploy não sai
+      - uses: ./.github/actions/dados
       - uses: ./.github/actions/ensure-r2-bucket
       - name: Build e deploy na Cloudflare
         run: pnpm run deploy

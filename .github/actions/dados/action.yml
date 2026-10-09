@@ -1,0 +1,16 @@
+name: Dados
+description: Baixa a branch `dados` para ./dados e valida antes do build
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        REPO: https://github.com/${{ github.repository }}.git
+      run: |
+        if git ls-remote --exit-code --heads "$REPO" dados > /dev/null; then
+          git clone --quiet --depth 1 --branch dados "$REPO" dados
+          rm -rf dados/.git
+          pnpm etl:validar dados
+        else
+          echo "::notice::Branch dados ainda não existe; build sem dados."
+        fi

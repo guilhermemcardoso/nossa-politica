@@ -24,3 +24,6 @@ coverage/
 .DS_Store
 *.log
 *.tsbuildinfo
+
+# dados gerados pelo ETL (publicados na branch `dados`)
+/dados/
