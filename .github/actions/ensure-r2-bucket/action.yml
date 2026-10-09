@@ -1,9 +1,12 @@
 name: Garantir bucket R2
-description: Cria o bucket do cache incremental do OpenNext se ele ainda não existir
+description: Cria o bucket do cache incremental do OpenNext e a regra que apaga entradas antigas
 inputs:
   bucket:
     description: Nome do bucket (igual ao de wrangler.jsonc)
     default: nossa-politica-cache
+  expire-days:
+    description: Dias até apagar uma entrada do cache
+    default: "7"
 runs:
   using: composite
   steps:
@@ -15,4 +18,19 @@ runs:
           echo "Bucket $BUCKET já existe."
         else
           pnpm exec wrangler r2 bucket create "$BUCKET"
+        fi
+
+    # O OpenNext grava as páginas sob o ID de cada build e nunca apaga as de builds
+    # antigos. Sem esta regra, cada deploy acumula uma cópia nova no bucket.
+    # Uma entrada apagada é só um cache miss: a página é gerada de novo no acesso.
+    - shell: bash
+      env:
+        BUCKET: ${{ inputs.bucket }}
+        EXPIRE_DAYS: ${{ inputs.expire-days }}
+        RULE: expirar-cache-antigo
+      run: |
+        if pnpm exec wrangler r2 bucket lifecycle list "$BUCKET" 2>/dev/null | grep -q "$RULE"; then
+          echo "Regra $RULE já existe."
+        else
+          pnpm exec wrangler r2 bucket lifecycle add "$BUCKET" "$RULE" --expire-days "$EXPIRE_DAYS" --force
         fi
