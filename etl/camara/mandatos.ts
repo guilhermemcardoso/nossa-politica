@@ -30,6 +30,25 @@ export function somarDias(data: string, dias: number): string {
   return new Date(Date.parse(data) + dias * UM_DIA).toISOString().slice(0, 10);
 }
 
+/**
+ * Todos os nomes que o deputado já usou: parlamentar e eleitoral, em qualquer
+ * legislatura ("Capitão Derrite" → "Guilherme Derrite"). Outras fontes, como o
+ * Portal da Transparência, usam o nome da época.
+ */
+export function nomesDoHistorico(historico: ItemHistorico[]): string[] {
+  const nomes = new Map<string, string>();
+  for (const h of historico) {
+    for (const nome of [h.nome, h.nomeEleitoral]) {
+      const limpo = nome.trim();
+      const chave = limpo.toUpperCase();
+      if (limpo === "") continue;
+      // Entre "BOZZELLA" e "Bozzella", fica a versão escrita normalmente
+      if (!nomes.has(chave) || limpo !== chave) nomes.set(chave, limpo);
+    }
+  }
+  return [...nomes.values()];
+}
+
 export function dentroDosPeriodos(data: string, periodos: Periodo[]): boolean {
   return periodos.some((p) => p.inicio <= data && data <= p.fim);
 }
@@ -80,11 +99,16 @@ export function calcularMandato(
 
   const ultimo =
     itens.findLast((i) => i.siglaPartido !== "") ?? itens[itens.length - 1];
+  // Alguns registros trazem o nome todo em maiúsculas ("BOZZELLA"); para
+  // exibir, vale o último escrito normalmente
+  const nome =
+    itens.findLast((i) => i.nome.trim() !== i.nome.trim().toUpperCase())
+      ?.nome ?? ultimo.nome;
   const legislaturaEmCurso = legislatura.dataFim >= hoje;
 
   return {
     idLegislatura: legislatura.id,
-    nome: ultimo.nome.trim(),
+    nome: nome.trim(),
     partido: ultimo.siglaPartido,
     uf: ultimo.siglaUf,
     urlFoto: ultimo.urlFoto,

@@ -3,47 +3,66 @@ import type { z } from "zod";
 export class ErroDeFormato extends Error {}
 
 /**
- * Valida as linhas de uma fonte com Zod. Algumas linhas com lixo são toleradas
- * (e descartadas), mas se a fração inválida passar de `tolerancia` a fonte
- * provavelmente mudou de formato, e a carga é interrompida antes de publicar
- * dado errado.
+ * Valida linhas de uma fonte com Zod, uma a uma (serve para arquivos lidos em
+ * fluxo). Algumas linhas com lixo são toleradas e descartadas, mas se a fração
+ * inválida passar de `tolerancia` a fonte provavelmente mudou de formato, e
+ * `concluir()` interrompe a carga antes de publicar dado errado.
  */
+export class ValidadorDeLinhas<S extends z.ZodType> {
+  private total = 0;
+  private invalidas = 0;
+  private readonly exemplos: string[] = [];
+
+  constructor(
+    private readonly esquema: S,
+    private readonly fonte: string,
+    private readonly tolerancia = 0.01,
+  ) {}
+
+  validar(linha: unknown): z.infer<S> | undefined {
+    const indice = this.total++;
+    const resultado = this.esquema.safeParse(linha);
+    if (resultado.success) return resultado.data;
+    this.invalidas++;
+    if (this.exemplos.length < 3) {
+      const problema = resultado.error.issues[0];
+      this.exemplos.push(
+        `linha ${indice}: ${problema.path.join(".") || "(raiz)"} — ${problema.message}`,
+      );
+    }
+    return undefined;
+  }
+
+  concluir(): void {
+    const { total, invalidas, exemplos, fonte } = this;
+    if (total > 0 && invalidas / total > this.tolerancia) {
+      throw new ErroDeFormato(
+        `${fonte}: ${invalidas} de ${total} linhas fora do formato esperado. ` +
+          `A fonte pode ter mudado. Exemplos:\n  ${exemplos.join("\n  ")}`,
+      );
+    }
+    if (invalidas > 0) {
+      console.warn(
+        `⚠ ${fonte}: ${invalidas} de ${total} linhas descartadas (${exemplos[0]})`,
+      );
+    }
+  }
+}
+
+/** Valida um array de linhas de uma vez (ver {@link ValidadorDeLinhas}). */
 export function validarLinhas<S extends z.ZodType>(
   esquema: S,
   linhas: readonly unknown[],
   fonte: string,
   tolerancia = 0.01,
 ): z.infer<S>[] {
+  const validador = new ValidadorDeLinhas(esquema, fonte, tolerancia);
   const validas: z.infer<S>[] = [];
-  const exemplos: string[] = [];
-  let invalidas = 0;
-
-  for (const [indice, linha] of linhas.entries()) {
-    const resultado = esquema.safeParse(linha);
-    if (resultado.success) {
-      validas.push(resultado.data);
-    } else {
-      invalidas++;
-      if (exemplos.length < 3) {
-        const problema = resultado.error.issues[0];
-        exemplos.push(
-          `linha ${indice}: ${problema.path.join(".") || "(raiz)"} — ${problema.message}`,
-        );
-      }
-    }
+  for (const linha of linhas) {
+    const valida = validador.validar(linha);
+    if (valida !== undefined) validas.push(valida);
   }
-
-  if (linhas.length > 0 && invalidas / linhas.length > tolerancia) {
-    throw new ErroDeFormato(
-      `${fonte}: ${invalidas} de ${linhas.length} linhas fora do formato esperado. ` +
-        `A fonte pode ter mudado. Exemplos:\n  ${exemplos.join("\n  ")}`,
-    );
-  }
-  if (invalidas > 0) {
-    console.warn(
-      `⚠ ${fonte}: ${invalidas} de ${linhas.length} linhas descartadas (${exemplos[0]})`,
-    );
-  }
+  validador.concluir();
   return validas;
 }
 

@@ -15,10 +15,16 @@ import {
   mediaMensal,
 } from "../comum/consolidacao";
 import { centavos, percentual } from "../lib/estatistica";
+import { normalizarNome } from "../lib/texto";
 import type { Legislatura } from "./api";
 import { SITUACAO_VIROU_NORMA } from "./config";
 import type { DeputadoDaLista, ItemHistorico } from "./esquemas";
-import { calcularMandato, dentroDosPeriodos, type Mandato } from "./mandatos";
+import {
+  calcularMandato,
+  dentroDosPeriodos,
+  type Mandato,
+  nomesDoHistorico,
+} from "./mandatos";
 import type {
   NotaFiscal,
   ParcialAno,
@@ -99,6 +105,10 @@ export function consolidar(entrada: EntradaConsolidacao): SaidaConsolidacao {
       id,
       nome: atual.nome,
       nomeCivil: entrada.nomesCivis?.get(id),
+      outrosNomes: outrosNomes(
+        nomesDoHistorico(entrada.historicos.get(id) ?? []),
+        atual.nome,
+      ),
       partido: atual.partido,
       uf: atual.uf,
       urlFoto: atual.urlFoto,
@@ -346,4 +356,13 @@ function montarMandato(
       votos,
     },
   };
+}
+
+/** Variantes de nome, sem repetir o nome atual (ignorando maiúsculas e acentos). */
+function outrosNomes(nomes: string[], atual: string): string[] | undefined {
+  const chave = (n: string) => normalizarNome(n);
+  const lista = nomes
+    .filter((n) => chave(n) !== chave(atual))
+    .sort((a, b) => a.localeCompare(b, "pt-BR"));
+  return lista.length > 0 ? lista : undefined;
 }
