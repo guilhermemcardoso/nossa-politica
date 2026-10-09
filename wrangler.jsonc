@@ -1,0 +1,34 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nossa-politica",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "workers_dev": true,
+  // Gera uma URL própria para cada versão enviada (preview dos PRs)
+  "preview_urls": true,
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      // Auto-referência exigida pelo cache do OpenNext; o nome deve ser igual ao do Worker
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "nossa-politica"
+    }
+  ],
+  "r2_buckets": [
+    {
+      // Cache incremental (ISR) do OpenNext. O bucket é criado pelos workflows de CI/deploy.
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "nossa-politica-cache"
+    }
+  ],
+  "images": {
+    "binding": "IMAGES"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
