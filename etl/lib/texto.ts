@@ -24,3 +24,29 @@ export function mascararDocumento(documento: string): string {
   }
   return documento.trim();
 }
+
+/** "Jean-Paul Prates" → "JEAN PAUL PRATES" */
+export function normalizarNome(nome: string): string {
+  return removerAcentos(nome)
+    .toUpperCase()
+    .replace(/[^A-Z0-9]+/g, " ")
+    .trim();
+}
+
+/**
+ * Compara nomes tolerando pontuação, acentos e nomes do meio omitidos
+ * ("Luiz do Carmo" = "Luiz Carlos do Carmo"; "Samuel Araújo" = "Dr. Samuel
+ * Araújo"). Todas as palavras do nome mais curto precisam estar no mais longo,
+ * com o mesmo sobrenome final.
+ */
+export function mesmoNome(a: string, b: string): boolean {
+  const pa = normalizarNome(a).split(" ").filter(Boolean);
+  const pb = normalizarNome(b).split(" ").filter(Boolean);
+  if (pa.join(" ") === pb.join(" ")) return pa.length > 0;
+  const [menor, maior] = pa.length <= pb.length ? [pa, pb] : [pb, pa];
+  return (
+    menor.length >= 2 &&
+    menor.at(-1) === maior.at(-1) &&
+    menor.every((palavra) => maior.includes(palavra))
+  );
+}

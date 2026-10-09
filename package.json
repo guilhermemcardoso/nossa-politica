@@ -18,7 +18,8 @@
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "etl:camara": "tsx etl/camara/index.ts",
-    "etl:validar": "tsx etl/validar.ts"
+    "etl:validar": "tsx etl/validar.ts",
+    "etl:senado": "tsx etl/senado/index.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

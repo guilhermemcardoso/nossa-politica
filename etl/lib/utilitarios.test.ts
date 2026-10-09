@@ -3,7 +3,7 @@ import { z } from "zod";
 import { hojeEmBrasilia } from "./arquivos";
 import { mapearComLimite } from "./concorrencia";
 import { centavos, mediana, percentual } from "./estatistica";
-import { mascararDocumento, slugificar } from "./texto";
+import { mascararDocumento, mesmoNome, slugificar } from "./texto";
 import { ErroDeFormato, validarLinhas } from "./validacao";
 
 describe("estatística", () => {
@@ -33,6 +33,14 @@ describe("texto", () => {
     expect(mascararDocumento("111.222.333/44  -  ")).toBe("***.222.333-**");
     expect(mascararDocumento("085.324.290/0013-1 ")).toBe("08.532.429/0001-31");
     expect(mascararDocumento("")).toBe("");
+  });
+
+  it("compara nomes tolerando pontuação e nomes do meio omitidos", () => {
+    expect(mesmoNome("Jean-Paul Prates", "Jean Paul Prates")).toBe(true);
+    expect(mesmoNome("Luiz do Carmo", "Luiz Carlos do Carmo")).toBe(true);
+    expect(mesmoNome("Samuel Araújo", "Dr. Samuel Araújo")).toBe(true);
+    expect(mesmoNome("Eduardo Gomes", "Eduardo Girão")).toBe(false);
+    expect(mesmoNome("Gomes", "Eduardo Gomes")).toBe(false); // uma palavra só não basta
   });
 });
 

@@ -1,0 +1,828 @@
+{
+  "senadoresLegislatura57": {
+    "ListaParlamentarLegislatura": {
+      "noNamespaceSchemaLocation": "https://legis.senado.leg.br/dadosabertos/dados/ListaParlamentarLegislaturav4.xsd",
+      "Metadados": {
+        "Versao": "09/10/2026 14:53:35",
+        "VersaoServico": "4",
+        "DataVersaoServico": "2021-09-09",
+        "DescricaoDataSet": "Retorna a lista de Senadores de uma Legislatura."
+      },
+      "Parlamentares": {
+        "Parlamentar": [
+          {
+            "IdentificacaoParlamentar": {
+              "CodigoParlamentar": "5918",
+              "NomeParlamentar": "Adilson Gomes",
+              "NomeCompletoParlamentar": "Adilson Gomes Silva",
+              "SexoParlamentar": "Masculino",
+              "FormaTratamento": "Senador "
+            },
+            "Mandatos": {
+              "Mandato": [
+                {
+                  "CodigoMandato": "526",
+                  "UfParlamentar": "PE",
+                  "PrimeiraLegislaturaDoMandato": {
+                    "NumeroLegislatura": "56",
+                    "DataInicio": "2019-02-01",
+                    "DataFim": "2023-01-31"
+                  },
+                  "SegundaLegislaturaDoMandato": {
+                    "NumeroLegislatura": "57",
+                    "DataInicio": "2023-02-01",
+                    "DataFim": "2027-01-31"
+                  },
+                  "DescricaoParticipacao": "2º Suplente",
+                  "Titular": {
+                    "DescricaoParticipacao": "Titular",
+                    "CodigoParlamentar": "4545",
+                    "NomeParlamentar": "Jarbas Vasconcelos"
+                  },
+                  "Suplentes": {
+                    "Suplente": [
+                      {
+                        "DescricaoParticipacao": "1º Suplente",
+                        "CodigoParlamentar": "5917",
+                        "NomeParlamentar": "Fernando Dueire"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "IdentificacaoParlamentar": {
+              "CodigoParlamentar": "5672",
+              "CodigoPublicoNaLegAtual": "800",
+              "NomeParlamentar": "Alan Rick",
+              "NomeCompletoParlamentar": "Alan Rick Miranda",
+              "SexoParlamentar": "Masculino",
+              "FormaTratamento": "Senador ",
+              "UrlFotoParlamentar": "http://www.senado.leg.br/senadores/img/fotos-oficiais/senador5672.jpg",
+              "UrlPaginaParlamentar": "http://www25.senado.leg.br/web/senadores/senador/-/perfil/5672",
+              "EmailParlamentar": "sen.alanrick@senado.leg.br",
+              "SiglaPartidoParlamentar": "REPUBLICANOS",
+              "UfParlamentar": "AC"
+            },
+            "Mandatos": {
+              "Mandato": [
+                {
+                  "CodigoMandato": "596",
+                  "UfParlamentar": "AC",
+                  "PrimeiraLegislaturaDoMandato": {
+                    "NumeroLegislatura": "57",
+                    "DataInicio": "2023-02-01",
+                    "DataFim": "2027-01-31"
+                  },
+                  "SegundaLegislaturaDoMandato": {
+                    "NumeroLegislatura": "58",
+                    "DataInicio": "2027-02-01",
+                    "DataFim": "2031-01-31"
+                  },
+                  "DescricaoParticipacao": "Titular",
+                  "Suplentes": {
+                    "Suplente": [
+                      {
+                        "DescricaoParticipacao": "1º Suplente",
+                        "CodigoParlamentar": "6343",
+                        "NomeParlamentar": "Gemil Junior"
+                      },
+                      {
+                        "DescricaoParticipacao": "2º Suplente",
+                        "CodigoParlamentar": "6344",
+                        "NomeParlamentar": "Coronel Casagrande"
+                      }
+                    ]
+                  },
+                  "Exercicios": {
+                    "Exercicio": [
+                      {
+                        "CodigoExercicio": "3028",
+                        "DataInicio": "2023-02-01"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "mandatos": {
+    "5672": {
+      "MandatoParlamentar": {
+        "noNamespaceSchemaLocation": "https://legis.senado.leg.br/dadosabertos/dados/MandatoParlamentarv5.xsd",
+        "Metadados": {
+          "Versao": "09/10/2026 14:53:51",
+          "VersaoServico": "5",
+          "DataVersaoServico": "2021-09-09",
+          "DescricaoDataSet": "Retorna a relação dos Mandatos do Senador informado no parâmetro."
+        },
+        "Parlamentar": {
+          "Codigo": "5672",
+          "Nome": "Alan Rick",
+          "Mandatos": {
+            "Mandato": [
+              {
+                "CodigoMandato": "596",
+                "UfParlamentar": "AC",
+                "PrimeiraLegislaturaDoMandato": {
+                  "NumeroLegislatura": "57",
+                  "DataInicio": "2023-02-01",
+                  "DataFim": "2027-01-31"
+                },
+                "SegundaLegislaturaDoMandato": {
+                  "NumeroLegislatura": "58",
+                  "DataInicio": "2027-02-01",
+                  "DataFim": "2031-01-31"
+                },
+                "DescricaoParticipacao": "Titular",
+                "Suplentes": {
+                  "Suplente": [
+                    {
+                      "DescricaoParticipacao": "1º Suplente",
+                      "CodigoParlamentar": "6343",
+                      "NomeParlamentar": "Gemil Junior"
+                    },
+                    {
+                      "DescricaoParticipacao": "2º Suplente",
+                      "CodigoParlamentar": "6344",
+                      "NomeParlamentar": "Coronel Casagrande"
+                    }
+                  ]
+                },
+                "Exercicios": {
+                  "Exercicio": [
+                    {
+                      "CodigoExercicio": "3028",
+                      "DataInicio": "2023-02-01"
+                    }
+                  ]
+                },
+                "Partidos": {
+                  "Partido": [
+                    {
+                      "CodigoPartido": "521",
+                      "Sigla": "REPUBLICANOS",
+                      "Nome": "Republicanos",
+                      "DataFiliacao": "2025-11-12"
+                    },
+                    {
+                      "CodigoPartido": "582",
+                      "Sigla": "UNIÃO",
+                      "Nome": "União Brasil",
+                      "DataFiliacao": "2022-02-24",
+                      "DataDesfiliacao": "2025-11-10"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "5918": {
+      "MandatoParlamentar": {
+        "noNamespaceSchemaLocation": "https://legis.senado.leg.br/dadosabertos/dados/MandatoParlamentarv5.xsd",
+        "Metadados": {
+          "Versao": "09/10/2026 14:51:18",
+          "VersaoServico": "5",
+          "DataVersaoServico": "2021-09-09",
+          "DescricaoDataSet": "Retorna a relação dos Mandatos do Senador informado no parâmetro."
+        },
+        "Parlamentar": {
+          "Codigo": "5918",
+          "Nome": "Adilson Gomes",
+          "Mandatos": {
+            "Mandato": [
+              {
+                "CodigoMandato": "526",
+                "UfParlamentar": "PE",
+                "PrimeiraLegislaturaDoMandato": {
+                  "NumeroLegislatura": "56",
+                  "DataInicio": "2019-02-01",
+                  "DataFim": "2023-01-31"
+                },
+                "SegundaLegislaturaDoMandato": {
+                  "NumeroLegislatura": "57",
+                  "DataInicio": "2023-02-01",
+                  "DataFim": "2027-01-31"
+                },
+                "DescricaoParticipacao": "2º Suplente",
+                "Titular": {
+                  "DescricaoParticipacao": "Titular",
+                  "CodigoParlamentar": "4545",
+                  "NomeParlamentar": "Jarbas Vasconcelos"
+                },
+                "Suplentes": {
+                  "Suplente": [
+                    {
+                      "DescricaoParticipacao": "1º Suplente",
+                      "CodigoParlamentar": "5917",
+                      "NomeParlamentar": "Fernando Dueire"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "filiacoes": {
+    "5672": {
+      "FiliacaoParlamentar": {
+        "noNamespaceSchemaLocation": "https://legis.senado.leg.br/dadosabertos/dados/FiliacaoParlamentarv5.xsd",
+        "Metadados": {
+          "Versao": "09/10/2026 14:53:52",
+          "VersaoServico": "5",
+          "DataVersaoServico": "2021-09-09",
+          "DescricaoDataSet": "Retorna a relação de Filiações Partidárias do Senador informado no parâmetro."
+        },
+        "Parlamentar": {
+          "Codigo": "5672",
+          "Nome": "Alan Rick",
+          "Filiacoes": {
+            "Filiacao": [
+              {
+                "Partido": {
+                  "CodigoPartido": "521",
+                  "SiglaPartido": "REPUBLICANOS",
+                  "NomePartido": "Republicanos"
+                },
+                "DataFiliacao": "2025-11-12"
+              },
+              {
+                "Partido": {
+                  "CodigoPartido": "582",
+                  "SiglaPartido": "UNIÃO",
+                  "NomePartido": "União Brasil"
+                },
+                "DataFiliacao": "2022-02-24",
+                "DataDesfiliacao": "2025-11-10"
+              },
+              {
+                "Partido": {
+                  "CodigoPartido": "554",
+                  "SiglaPartido": "DEM",
+                  "NomePartido": "Democratas"
+                },
+                "DataFiliacao": "2017-08-01",
+                "DataDesfiliacao": "2022-02-23"
+              },
+              {
+                "Partido": {
+                  "CodigoPartido": "521",
+                  "SiglaPartido": "REPUBLICANOS",
+                  "NomePartido": "Republicanos"
+                },
+                "DataFiliacao": "2015-02-01",
+                "DataDesfiliacao": "2017-07-31"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "5918": {
+      "FiliacaoParlamentar": {
+        "noNamespaceSchemaLocation": "https://legis.senado.leg.br/dadosabertos/dados/FiliacaoParlamentarv5.xsd",
+        "Metadados": {
+          "Versao": "09/10/2026 14:51:18",
+          "VersaoServico": "5",
+          "DataVersaoServico": "2021-09-09",
+          "DescricaoDataSet": "Retorna a relação de Filiações Partidárias do Senador informado no parâmetro."
+        },
+        "Parlamentar": {
+          "Codigo": "5918",
+          "Nome": "Adilson Gomes"
+        }
+      }
+    }
+  },
+  "votacoes": [
+    {
+      "ano": 2023,
+      "casaSessao": "SF",
+      "codigoMateria": 172003,
+      "codigoSessao": 526732,
+      "codigoSessaoLegislativa": 873,
+      "codigoSessaoVotacao": 7041,
+      "dataApresentacao": "2025-12-10",
+      "dataSessao": "2025-12-17",
+      "descricaoVotacao": "Votação nominal do Projeto de Lei nº 2.162, de 2023, nos termos do parecer.",
+      "ementa": "Altera dispositivos da Lei nº 7.210, de 11 de julho de 1984 (Lei de Execução Penal) e do Decreto-Lei nº 2.848, de 7 de dezembro de 1940 (Código Penal).",
+      "idProcesso": 8972241,
+      "identificacao": "PL 2162/2023",
+      "numero": "2162",
+      "numeroSessao": 198,
+      "resultadoVotacao": "A",
+      "sequencialSessao": 1,
+      "sequencialVotacao": 4356,
+      "sigla": "PL",
+      "siglaTipoSessao": "DOR",
+      "totalVotosAbstencao": null,
+      "totalVotosNao": null,
+      "totalVotosSim": null,
+      "votacaoSecreta": "N",
+      "votos": [
+        {
+          "codigoParlamentar": 5672,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Alan Rick",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "REPUBLICANOS",
+          "siglaUFParlamentar": "AC",
+          "siglaVotoParlamentar": "Sim"
+        },
+        {
+          "codigoParlamentar": 6337,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Cleitinho",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "REPUBLICANOS",
+          "siglaUFParlamentar": "MG",
+          "siglaVotoParlamentar": "Sim"
+        },
+        {
+          "codigoParlamentar": 6335,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Damares Alves",
+          "sexoParlamentar": "F",
+          "siglaPartidoParlamentar": "REPUBLICANOS",
+          "siglaUFParlamentar": "DF",
+          "siglaVotoParlamentar": "Sim"
+        },
+        {
+          "codigoParlamentar": 6341,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Hamilton Mourão",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "REPUBLICANOS",
+          "siglaUFParlamentar": "RS",
+          "siglaVotoParlamentar": "Sim"
+        },
+        {
+          "codigoParlamentar": 6027,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Mecias de Jesus",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "REPUBLICANOS",
+          "siglaUFParlamentar": "RR",
+          "siglaVotoParlamentar": "Sim"
+        }
+      ]
+    },
+    {
+      "ano": 2025,
+      "casaSessao": "SF",
+      "codigoMateria": 172144,
+      "codigoSessao": 526732,
+      "codigoSessaoLegislativa": 873,
+      "codigoSessaoVotacao": 7042,
+      "dataApresentacao": "2025-12-17",
+      "dataSessao": "2025-12-17",
+      "descricaoVotacao": "Votação nominal do Projeto de Lei Complementar nº 128, de 2025, nos termos do parecer, ressalvado o destaque.",
+      "ementa": "Dispõe sobre a redução e os critérios de concessão de incentivos e benefícios de natureza tributária, financeira ou creditícia concedidos no âmbito da União; estabelece a responsabilidade solidária de terceiros pelo recolhimento de tributos incidentes sobre a exploração de apostas de quota fixa; e altera as Leis Complementares nº 101, de 4 de maio de 2000 (Lei de Responsabilidade Fiscal), 105, de 10 de janeiro de 2001, e 215, de 21 de março de 2025, e as Leis nºs 7.689, de 15 de dezembro de 1988, 9.249, de 26 de dezembro de 1995, 13.756, de 12 de dezembro de 2018, e 8.137, de 27 de dezembro de 1990.",
+      "idProcesso": 8978120,
+      "identificacao": "PLP 128/2025",
+      "numero": "128",
+      "numeroSessao": 198,
+      "resultadoVotacao": "A",
+      "sequencialSessao": 2,
+      "sequencialVotacao": 4357,
+      "sigla": "PLP",
+      "siglaTipoSessao": "DOR",
+      "totalVotosAbstencao": null,
+      "totalVotosNao": null,
+      "totalVotosSim": null,
+      "votacaoSecreta": "N",
+      "votos": [
+        {
+          "codigoParlamentar": 5672,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Alan Rick",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "REPUBLICANOS",
+          "siglaUFParlamentar": "AC",
+          "siglaVotoParlamentar": "Sim"
+        },
+        {
+          "codigoParlamentar": 6337,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Cleitinho",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "REPUBLICANOS",
+          "siglaUFParlamentar": "MG",
+          "siglaVotoParlamentar": "Não"
+        },
+        {
+          "codigoParlamentar": 6335,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Damares Alves",
+          "sexoParlamentar": "F",
+          "siglaPartidoParlamentar": "REPUBLICANOS",
+          "siglaUFParlamentar": "DF",
+          "siglaVotoParlamentar": "Não"
+        },
+        {
+          "codigoParlamentar": 6341,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Hamilton Mourão",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "REPUBLICANOS",
+          "siglaUFParlamentar": "RS",
+          "siglaVotoParlamentar": "Não"
+        },
+        {
+          "codigoParlamentar": 6027,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Mecias de Jesus",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "REPUBLICANOS",
+          "siglaUFParlamentar": "RR",
+          "siglaVotoParlamentar": "Sim"
+        }
+      ]
+    },
+    {
+      "ano": 2024,
+      "casaSessao": "SF",
+      "codigoMateria": 166760,
+      "codigoSessao": 473484,
+      "codigoSessaoLegislativa": 873,
+      "codigoSessaoVotacao": 6973,
+      "dataApresentacao": "2024-12-17",
+      "dataSessao": "2025-08-19",
+      "descricaoVotacao": "Votação nominal da Mensagem nº 95, de 2024 - Larissa Oliveira Rêgo (ANA).",
+      "ementa": "Submete à apreciação do Senado Federal, de conformidade com o art. 52, inciso III, alínea \"f\", da Constituição, combinado com o art. 9º da Lei nº 9.984, de 17 de julho de 2000, o nome da Senhora LARISSA OLIVEIRA RÊGO, para exercer o cargo de Diretora da Agência Nacional de Águas e Saneamento Básico - ANA, na vaga decorrente do término do mandato de Vitor Eduardo de Almeida Saback, que renunciou.",
+      "idProcesso": 8776257,
+      "identificacao": "MSF 95/2024",
+      "numero": "95",
+      "numeroSessao": 94,
+      "resultadoVotacao": "A",
+      "sequencialSessao": 1,
+      "sequencialVotacao": 4289,
+      "sigla": "MSF",
+      "siglaTipoSessao": "DOR",
+      "totalVotosAbstencao": 0,
+      "totalVotosNao": 0,
+      "totalVotosSim": 54,
+      "votacaoSecreta": "S",
+      "votos": [
+        {
+          "codigoParlamentar": 5672,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Alan Rick",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "UNIÃO",
+          "siglaUFParlamentar": "AC",
+          "siglaVotoParlamentar": "Votou"
+        },
+        {
+          "codigoParlamentar": 3830,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Davi Alcolumbre",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "UNIÃO",
+          "siglaUFParlamentar": "AP",
+          "siglaVotoParlamentar": "Votou"
+        },
+        {
+          "codigoParlamentar": 4642,
+          "descricaoVotoParlamentar": "Presente – Não registrou voto",
+          "nomeParlamentar": "Efraim Filho",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "UNIÃO",
+          "siglaUFParlamentar": "PB",
+          "siglaVotoParlamentar": "P-NRV"
+        },
+        {
+          "codigoParlamentar": 4531,
+          "descricaoVotoParlamentar": null,
+          "nomeParlamentar": "Jayme Campos",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "UNIÃO",
+          "siglaUFParlamentar": "MT",
+          "siglaVotoParlamentar": "Votou"
+        },
+        {
+          "codigoParlamentar": 285,
+          "descricaoVotoParlamentar": "Atividade parlamentar",
+          "nomeParlamentar": "Marcio Bittar",
+          "sexoParlamentar": "M",
+          "siglaPartidoParlamentar": "UNIÃO",
+          "siglaUFParlamentar": "AC",
+          "siglaVotoParlamentar": "AP"
+        },
+        {
+          "codigoParlamentar": 5386,
+          "descricaoVotoParlamentar": "Presente – Não registrou voto",
+          "nomeParlamentar": "Professora Dorinha Seabra",
+          "sexoParlamentar": "F",
+          "siglaPartidoParlamentar": "UNIÃO",
+          "siglaUFParlamentar": "TO",
+          "siglaVotoParlamentar": "P-NRV"
+        }
+      ]
+    }
+  ],
+  "orientacoes": {
+    "votacoes": [
+      {
+        "sequencialVotacao": 4356,
+        "orientacoesLideranca": [
+          {
+            "dataHora": "2025-12-17T20:34:50",
+            "partido": "Banc Fem",
+            "voto": "LIVRE"
+          },
+          {
+            "dataHora": "2025-12-17T20:34:56",
+            "partido": "Governo",
+            "voto": "NÃO"
+          },
+          {
+            "dataHora": "2025-12-17T20:31:24",
+            "partido": "PL",
+            "voto": "SIM"
+          },
+          {
+            "dataHora": "2025-12-17T20:31:47",
+            "partido": "MDB",
+            "voto": "NÃO"
+          },
+          {
+            "dataHora": "2025-12-17T20:32:35",
+            "partido": "UNIÃO",
+            "voto": "SIM"
+          },
+          {
+            "dataHora": "2025-12-17T20:33:12",
+            "partido": "PDT",
+            "voto": "NÃO"
+          },
+          {
+            "dataHora": "2025-12-17T20:34:23",
+            "partido": "Oposição",
+            "voto": "SIM"
+          },
+          {
+            "dataHora": "2025-12-17T20:32:23",
+            "partido": "Republica",
+            "voto": "SIM"
+          },
+          {
+            "dataHora": "2025-12-17T20:32:14",
+            "partido": "PP",
+            "voto": "SIM"
+          },
+          {
+            "dataHora": "2025-12-17T20:34:04",
+            "partido": "NOVO",
+            "voto": "SIM"
+          },
+          {
+            "dataHora": "2025-12-17T20:32:06",
+            "partido": "PT",
+            "voto": "NÃO"
+          }
+        ]
+      },
+      {
+        "sequencialVotacao": 4357,
+        "orientacoesLideranca": [
+          {
+            "dataHora": "2025-12-17T21:28:08",
+            "partido": "UNIÃO",
+            "voto": "SIM"
+          },
+          {
+            "dataHora": "2025-12-17T21:26:08",
+            "partido": "MDB",
+            "voto": "SIM"
+          },
+          {
+            "dataHora": "2025-12-17T21:29:06",
+            "partido": "Banc Fem",
+            "voto": "LIVRE"
+          },
+          {
+            "dataHora": "2025-12-17T21:26:14",
+            "partido": "PP",
+            "voto": "LIVRE"
+          },
+          {
+            "dataHora": "2025-12-17T21:43:51",
+            "partido": "NOVO",
+            "voto": "NÃO"
+          },
+          {
+            "dataHora": "2025-12-17T21:28:29",
+            "partido": "PDT",
+            "voto": "SIM"
+          },
+          {
+            "dataHora": "2025-12-17T21:26:25",
+            "partido": "Republica",
+            "voto": "LIVRE"
+          },
+          {
+            "dataHora": "2025-12-17T21:26:21",
+            "partido": "PT",
+            "voto": "SIM"
+          },
+          {
+            "dataHora": "2025-12-17T21:28:59",
+            "partido": "Governo",
+            "voto": "SIM"
+          },
+          {
+            "dataHora": "2025-12-17T21:26:03",
+            "partido": "PL",
+            "voto": "SIM"
+          }
+        ]
+      }
+    ]
+  },
+  "despesas": [
+    {
+      "id": 2248419,
+      "tipoDocumento": "Fatura",
+      "ano": 2025,
+      "mes": 1,
+      "codSenador": 5672,
+      "nomeSenador": "ALAN RICK",
+      "tipoDespesa": "Aluguel de imóveis para escritório político, compreendendo despesas concernentes a eles.",
+      "cpfCnpj": "66.970.229/0132-26",
+      "fornecedor": "CLARO NXT TELECOMUNICAÇÕES S.A",
+      "documento": "693736",
+      "data": "2025-01-18",
+      "detalhamento": "",
+      "valorReembolsado": 399.44
+    },
+    {
+      "id": 2249003,
+      "tipoDocumento": "Nota Fiscal Eletrônica",
+      "ano": 2025,
+      "mes": 1,
+      "codSenador": 5672,
+      "nomeSenador": "ALAN RICK",
+      "tipoDespesa": "Aluguel de imóveis para escritório político, compreendendo despesas concernentes a eles.",
+      "cpfCnpj": "04.065.033/0001-70",
+      "fornecedor": "ENERGISA ACRE - DISTRIBUIDORA DE ENERGIA S.A",
+      "documento": "7668505",
+      "data": "2024-01-15",
+      "detalhamento": "",
+      "valorReembolsado": 324.18
+    },
+    {
+      "id": 2248420,
+      "tipoDocumento": "Recibo",
+      "ano": 2025,
+      "mes": 1,
+      "codSenador": 5672,
+      "nomeSenador": "ALAN RICK",
+      "tipoDespesa": "Aluguel de imóveis para escritório político, compreendendo despesas concernentes a eles.",
+      "cpfCnpj": "860.***.***-53",
+      "fornecedor": "LARISSA MAIA MARTINELLO",
+      "documento": "01-2025",
+      "data": "2025-01-25",
+      "detalhamento": "",
+      "valorReembolsado": 4000
+    },
+    {
+      "id": 2253369,
+      "tipoDocumento": "Fatura",
+      "ano": 2025,
+      "mes": 1,
+      "codSenador": 6009,
+      "nomeSenador": "ASTRONAUTA MARCOS PONTES",
+      "tipoDespesa": "Passagens aéreas, aquáticas e terrestres nacionais",
+      "cpfCnpj": "05.120.923/0001-09",
+      "fornecedor": "Aerotur Serviços",
+      "documento": "0005026990",
+      "data": "2025-01-10",
+      "detalhamento": "",
+      "valorReembolsado": -1541.7
+    }
+  ],
+  "processos": [
+    {
+      "autoria": "Senador Alan Rick (UNIÃO/AC), Senador Eduardo Gomes (PL/TO), Senador Jorge Seif (PL/SC), Senador Omar Aziz (PSD/AM), Senador Astronauta Marcos Pontes (PL/SP), Senador Mecias de Jesus (REPUBLICANOS/RR), Senadora Teresa Leitão (PT/PE), Senadora Leila Barros (PDT/DF), Senador Izalci Lucas (PSDB/DF), Senadora Professora Dorinha Seabra (UNIÃO/TO), Senador Styvenson Valentim (PODEMOS/RN), Senador Luis Carlos Heinze (PP/RS), Senador Chico Rodrigues (PSB/RR), Senador Confúcio Moura (MDB/RO), Senadora Damares Alves (REPUBLICANOS/DF), Senador Efraim Filho (UNIÃO/PB), Senador Alessandro Vieira (PSDB/SE), Senador Rogério Carvalho (PT/SE), Senador Sergio Moro (UNIÃO/PR), Senador Hamilton Mourão (REPUBLICANOS/RS), Senadora Tereza Cristina (PP/MS), Senador Marcos do Val (PODEMOS/ES), Senadora Zenaide Maia (PSD/RN), Senador Esperidião Amin (PP/SC), Senador Dr. Samuel Araújo (PSD/RO), Senador Wilder Morais (PL/GO), Senador Carlos Viana (PODEMOS/MG), Senador Angelo Coronel (PSD/BA), Senador Zequinha Marinho (PL/PA), Senador Irajá (PSD/TO), Senador Veneziano Vital do Rêgo (MDB/PB), Senador Carlos Portinho (PL/RJ), Senador Rodrigo Cunha (UNIÃO/AL), Senador Eduardo Braga (MDB/AM)",
+      "casaIdentificadora": "SF",
+      "codigoMateria": 156810,
+      "dataApresentacao": "2023-04-11",
+      "dataSituacaoAtual": "2024-03-06",
+      "ementa": "Altera o art. 6º da Constituição Federal para dispor sobre o direito à segurança alimentar como direito fundamental.",
+      "enteIdentificador": "SF",
+      "id": 8412320,
+      "identificacao": "PEC 17/2023",
+      "objetivo": "Iniciadora",
+      "situacaoAtual": "PRONTO PARA DELIBERAÇÃO DO PLENÁRIO",
+      "tipoConteudo": "Norma Geral",
+      "tipoDocumento": "Proposta de Emenda à Constituição",
+      "tramitando": "Sim",
+      "urlDocumento": "https://legis.senado.gov.br/sdleg-getter/dadosabertos/documento/8d3afafe-9e45-45cc-aac0-d1f473ec8254"
+    },
+    {
+      "autoria": "Senador Alan Rick (UNIÃO/AC)",
+      "casaIdentificadora": "SF",
+      "codigoMateria": 157013,
+      "dataApresentacao": "2023-04-19",
+      "dataSituacaoAtual": "2025-04-23",
+      "dataUltimaAtualizacao": "2026-07-14T13:50:18.539",
+      "ementa": "Estabelece normas gerais sobre segurança escolar e dá outras providências.",
+      "enteIdentificador": "SF",
+      "id": 8419253,
+      "identificacao": "PL 2036/2023",
+      "objetivo": "Iniciadora",
+      "situacaoAtual": "AGUARDANDO DESIGNAÇÃO DO RELATOR",
+      "tipoConteudo": "Norma Geral",
+      "tipoDocumento": "Projeto de Lei Ordinária",
+      "tramitando": "Sim",
+      "ultimaInformacaoAtualizada": "EVENTO_LEGISLATIVO",
+      "urlDocumento": "https://legis.senado.gov.br/sdleg-getter/dadosabertos/documento/f1b37c8b-d5bb-4501-84b4-045765c07885"
+    },
+    {
+      "autoria": "Senador Magno Malta (PL/ES), Senador Styvenson Valentim (PODEMOS/RN), Senador Eduardo Girão (NOVO/CE), Senador Flávio Bolsonaro (PL/RJ), Senador Eduardo Gomes (PL/TO), Senador Alan Rick (UNIÃO/AC), Senadora Damares Alves (REPUBLICANOS/DF), Senador Zequinha Marinho (PL/PA), Senador Luis Carlos Heinze (PP/RS), Senador Carlos Portinho (PL/RJ), Senador Cleitinho (REPUBLICANOS/MG), Senador Plínio Valério (PSDB/AM), Senador Carlos Viana (PODEMOS/MG), Senador Jaime Bagattoli (PL/RO), Senador Jorge Seif (PL/SC), Senador Laércio Oliveira (PP/SE), Senador Wilder Morais (PL/GO), Senador Astronauta Marcos Pontes (PL/SP), Senador Marcos Rogério (PL/RO), Senador Dr. Hiran (PP/RR), Senador Chico Rodrigues (PSB/RR), Senador Rogerio Marinho (PL/RN), Senador Jorge Kajuru (PSB/GO), Senador Veneziano Vital do Rêgo (MDB/PB), Senador Mecias de Jesus (REPUBLICANOS/RR), Senador Mauro Carvalho Junior (UNIÃO/MT), Senador Izalci Lucas (PSDB/DF), Senadora Tereza Cristina (PP/MS), Senador Ciro Nogueira (PP/PI)",
+      "casaIdentificadora": "SF",
+      "codigoMateria": 160163,
+      "dataApresentacao": "2023-02-23",
+      "dataSituacaoAtual": "2023-09-28",
+      "dataUltimaAtualizacao": "2026-06-30T10:20:54.147",
+      "ementa": "Altera o caput do art. 5º da Constituição Federal para ampliar o alcance do direito à vida ao nascituro.",
+      "enteIdentificador": "SF",
+      "id": 8549385,
+      "identificacao": "PEC 49/2023",
+      "objetivo": "Iniciadora",
+      "situacaoAtual": "AGUARDANDO DESIGNAÇÃO DO RELATOR",
+      "tipoConteudo": "Norma Geral",
+      "tipoDocumento": "Proposta de Emenda à Constituição",
+      "tramitando": "Sim",
+      "ultimaInformacaoAtualizada": "EVENTO_LEGISLATIVO",
+      "urlDocumento": "https://legis.senado.gov.br/sdleg-getter/dadosabertos/documento/ccf1017b-72b1-4285-b45f-6795c880262e"
+    },
+    {
+      "autoria": "Senador Omar Aziz (PSD/AM), Senador Irajá (PSD/TO), Senador Astronauta Marcos Pontes (PL/SP), Senador Esperidião Amin (PP/SC), Senador Otto Alencar (PSD/BA), Senador Marcos do Val (PODEMOS/ES), Senadora Margareth Buzetti (PSD/MT), Senadora Eliziane Gama (PSD/MA), Senador Jaime Bagattoli (PL/RO), Senador Cleitinho (REPUBLICANOS/MG), Senador Zequinha Marinho (PL/PA), Senador Angelo Coronel (PSD/BA), Senador Rogério Carvalho (PT/SE), Senadora Daniella Ribeiro (PSD/PB), Senador Paulo Paim (PT/RS), Senador Sérgio Petecão (PSD/AC), Senadora Mara Gabrilli (PSD/SP), Senador Alan Rick (UNIÃO/AC), Senador Eduardo Gomes (PL/TO), Senador Dr. Samuel Araújo (PSD/RO), Senador Wilder Morais (PL/GO), Senador Luis Carlos Heinze (PP/RS), Senador Hamilton Mourão (REPUBLICANOS/RS), Senador Eduardo Girão (NOVO/CE), Senador Eduardo Braga (MDB/AM), Senador Magno Malta (PL/ES), Senador Plínio Valério (PSDB/AM)",
+      "casaIdentificadora": "SF",
+      "codigoMateria": 156571,
+      "dataApresentacao": "2023-03-15",
+      "dataSituacaoAtual": "2023-04-25",
+      "ementa": "Altera o art. 144 da Constituição Federal para identificar a Polícia Hidroviária Federal como órgão do sistema de segurança pública.",
+      "enteIdentificador": "SF",
+      "id": 8402530,
+      "identificacao": "PEC 12/2023",
+      "objetivo": "Iniciadora",
+      "situacaoAtual": "AGUARDANDO DESIGNAÇÃO DO RELATOR",
+      "tipoConteudo": "Norma Geral",
+      "tipoDocumento": "Proposta de Emenda à Constituição",
+      "tramitando": "Sim",
+      "urlDocumento": "https://legis.senado.gov.br/sdleg-getter/dadosabertos/documento/adccd2af-42d0-4ba4-98cc-1b78ba13637c"
+    },
+    {
+      "autoria": "Senador Romário (PL/RJ), Senador Flávio Bolsonaro (PL/RJ), Senador Eduardo Gomes (PL/TO), Senador Paulo Paim (PT/RS), Senador Esperidião Amin (PP/SC), Senador Jorge Kajuru (PSB/GO), Senador Wellington Fagundes (PL/MT), Senador Angelo Coronel (PSD/BA), Senadora Damares Alves (REPUBLICANOS/DF), Senador Alan Rick (UNIÃO/AC), Senadora Tereza Cristina (PP/MS), Senador Flávio Arns (PSB/PR), Senador Dr. Hiran (PP/RR), Senadora Daniella Ribeiro (PSD/PB), Senador Eduardo Girão (PODEMOS/CE), Senador Zequinha Marinho (PL/PA), Senadora Mara Gabrilli (PSD/SP), Senador Nelsinho Trad (PSD/MS), Senadora Soraya Thronicke (UNIÃO/MS), Senador Styvenson Valentim (PODEMOS/RN), Senador Plínio Valério (PSDB/AM), Senador Luis Carlos Heinze (PP/RS), Senador Veneziano Vital do Rêgo (MDB/PB), Senador Carlos Viana (PODEMOS/MG), Senador Sergio Moro (UNIÃO/PR), Senador Marcio Bittar (UNIÃO/AC), Senador Izalci Lucas (PSDB/DF), Senador Hamilton Mourão (REPUBLICANOS/RS), Senador Jaime Bagattoli (PL/RO), Senador Chico Rodrigues (PSB/RR), Senador Ciro Nogueira (PP/PI), Senadora Margareth Buzetti (PSD/MT), Senador Carlos Portinho (PL/RJ), Senador Lucas Barreto (PSD/AP), Senador Jorge Seif (PL/SC), Senador Marcelo Castro (MDB/PI), Senador Laércio Oliveira (PP/SE)",
+      "casaIdentificadora": "SF",
+      "codigoMateria": 155808,
+      "dataApresentacao": "2023-02-02",
+      "dataDeliberacao": "2023-03-15",
+      "dataSituacaoAtual": "2023-03-15",
+      "ementa": "Desarquivamento das seguintes proposições: PRS 10/2016, PLS 183/2016, PLS 277/2016, PLS 275/2016, PLS 279/2016, PEC 34/2016, PLS 316/2016, PLS 444/2016, PLS 29/2017, PLS 170/2017, PLS 171/2017, PLS 187/2017, PLS 211/2017, PLS 266/2017, PLS 265/2017, PLS 262/2017, PLS 263/2017, PLS 300/2017, PLS 338/2017, PLS 339/2017, PEC 36/2017, PFS 2/2017, PLS 469/2017, PLS 509/2017, PLS 225/2018, PEC 10/2018, PLS 335/2018, PDS 139/2018, PLS 461/2018, PLS 460/2018, PLS 294/2016, PLS 26/2015, PLS 67/2015, PLS 69/2015, PLS 65/2015, PLS 66/2015, PLS 63/2015, PLS 73/2015, PLS 71/2015, PLS 64/2015, PLS 219/2015, PLS 278/2015, PLS 322/2015, PLS 354/2015, PLS 412/2015, PLS 506/2015, PLS 510/2015, PLS 528/2015, PRS 42/2015, PLS 703/2015, PLS 704/2015, PLS 758/2015, PLS 72/2015, PLS 279/2015.",
+      "enteIdentificador": "PLEN",
+      "id": 8360649,
+      "identificacao": "RQS 41/2023",
+      "siglaTipoDeliberacao": "APROVADA_NO_PLENARIO",
+      "situacaoAtual": "APROVADA",
+      "tipoConteudo": "Desarquivamento de matéria ",
+      "tipoDocumento": "Requerimento",
+      "tramitando": "Não",
+      "urlDocumento": "https://legis.senado.gov.br/sdleg-getter/dadosabertos/documento/171558c8-d283-4440-974d-b9e3e98809e5"
+    },
+    {
+      "autoria": "Senador Alan Rick (UNIÃO/AC)",
+      "casaIdentificadora": "SF",
+      "codigoMateria": 156267,
+      "dataApresentacao": "2023-03-15",
+      "dataDeliberacao": "2025-05-29",
+      "dataSituacaoAtual": "2025-06-12",
+      "ementa": "Institui a Frente Parlamentar Mista em Defesa dos Médicos Brasileiros Formados no Exterior e da Revalidação.",
+      "enteIdentificador": "PLEN",
+      "id": 8386098,
+      "identificacao": "PRS 29/2023",
+      "normaGerada": "Resolução do Senado Federal nº 12 de 10/06/2025",
+      "siglaTipoDeliberacao": "APROVADA_NO_PLENARIO",
+      "situacaoAtual": "TRANSFORMADA EM NORMA JURÍDICA",
+      "tipoConteudo": "Grupos e frentes parlamentares",
+      "tipoDocumento": "Projeto de Resolução",
+      "tramitando": "Não",
+      "urlDocumento": "https://legis.senado.gov.br/sdleg-getter/dadosabertos/documento/e43b4847-b496-40bb-bb6f-831e2969405f"
+    }
+  ]
+}
